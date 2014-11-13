@@ -1,0 +1,18 @@
+.loginbox {
+	height: 300px;
+	box-shadow: 0 0 4px #000000;
+	border-radius: 7px;
+	width: 30%;
+	padding-right: 30px;
+	padding-left: 30px;
+	padding-top: 20px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -150px 0 0 -15%;
+}
+.loginbox .titulo {
+	width: 100%;
+	text-align: center;
+}
+
