@@ -2,6 +2,14 @@ create database consecionaria;
 
 use concecionaria;
 
+create table usuario (
+	nome_usuario varchar(50) NOT NULL,
+	senha varchar(50) NOT NULL,
+	id_vendedor int(6) NOT NULL,
+	primary key (nome_usuario),
+	foreign key (id_vendedor) references vendedor(codigo)
+);
+
 create table pessoa (
 	codigo    int(6) NOT NULL AUTO_INCREMENT,
 	nome      varchar(50) NOT NULL,
@@ -44,3 +52,10 @@ create table vendedor (
 	data_adm  date NOT NULL,
 	primary key (codigo)
 );
+
+--inserções iniciares
+insert into vendedor (nome,cargo,turno,data_adm) values ('RICARDO VANHOZ RIBEIRO', 'VENDEDOR', 'DIURNO', '2014-01-01');
+
+-- senha do usuario é '123456' (sem aspas)
+insert into usuario (nome_usuario,senha,id_vendedor) values ('ricardovhz','7c4a8d09ca3762af61e59520943dc26494f8941b',1);
+
