@@ -68,6 +68,43 @@ switch ($action) {
 		$query = "delete from usuario where nome_usuario='" . $nome_usuario . "'";
 		realiza_DML($query,$con,"usuarios.php","Usuario apagado com sucesso!");
 		break;
+	case "novo_veiculo":
+		$id_vendedor = $_SESSION['id_vendedor'];
+		$marca = mysql_escape_string($_POST['marca']);
+		$modelo = mysql_escape_string($_POST['modelo']);
+		$ano_fabri = mysql_escape_string($_POST['ano_fabri']);
+
+		$query_buscar = "select * from veiculo where modelo='" . $modelo . "' and ano_fabri=" . $ano_fabri;
+		$res = mysql_query($query_buscar,$con);
+		if (mysql_num_rows($res) > 0) {
+			header('location: veiculos.php?error=true&msg=Modelo ja existe na base de dados');
+			die("Modelo já cadastrado");
+		}
+
+		$query = "insert into veiculo (marca, modelo, ano_fabri) values ('" . $marca . "', '". $modelo . "', " . $ano_fabri . ")";
+		realiza_DML($query,$con,"veiculos.php","Veiculo adicionado com sucesso!");
+		break;
+	case "atualizar_veiculo":
+		$id_vendedor = $_SESSION['id_vendedor'];
+		$codigo = mysql_escape_string($_POST['codigo']);
+		$marca = mysql_escape_string($_POST['marca']);
+		$modelo = mysql_escape_string($_POST['modelo']);
+		$ano_fabri = mysql_escape_string($_POST['ano_fabri']);
+		$query_buscar = "select * from veiculo where modelo='" . $modelo . "' and ano_fabri=" . $ano_fabri;
+		$res = mysql_query($query_buscar,$con);
+		if (mysql_num_rows($res) > 0) {
+			header('location: veiculos.php?error=true&msg=Modelo ja existe na base de dados');
+			die("Modelo já cadastrado");
+		}
+		$query = "update veiculo set marca='" . $marca . "', modelo='" . $modelo . "', ano_fabri=" . $ano_fabri  . " where codigo=" . $codigo ;
+		realiza_DML($query,$con,"veiculos.php","Veiculo atualizado com sucesso!");
+		break;
+	case "deletar_veiculo":
+		$modelo = mysql_escape_string($_POST['modelo']);
+		$ano_fabri = mysql_escape_string($_POST['ano_fabri']);
+		$query = "delete from veiculo where modelo='" . $modelo . "' and ano_fabri=".$ano_fabri;
+		realiza_DML($query,$con,"veiculos.php","Veiculo apagado com sucesso!");
+		break;
 
 }
 

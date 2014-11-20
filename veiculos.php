@@ -13,9 +13,9 @@
 	<nav class="navbar navbar-default" role="navigation">
 		<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="vendas.php" >Vendas</a></li>
+				<li><a href="vendas.php">Vendas</a></li>
 				<li><a href="pessoas.php">Pessoas</a></li>
-				<li><a href="veiculos.php">Veiculos</a></li>
+				<li class="active"><a href="veiculos.php" >Veiculos</a></li>
 				<li><a href="usuarios.php">Usuarios</a></li>
 			</ul>
 			<ul class="nav navbar-right">
@@ -23,6 +23,7 @@
 			</ul>
 		</div>
 	</nav>
+
 
 	<div class="container-fluid">
 		<div class="row">
@@ -35,7 +36,7 @@
 		</div>
 		<div class="row">
 			<div class="panel panel-default">
-				<div class="panel-heading">Vendas realizadas</div>
+				<div class="panel-heading">Veiculos Cadastrados</div>
 				<div class="navbar navbar-default">
 					<div class="collapse navbar-collapse">
 						<ul class="nav navbar-nav">
@@ -43,15 +44,13 @@
 						</ul>
 					</div>
 				</div>
-				<table class="table table-stripped table-hover" id="table-vendas">
+				<table class="table table-stripped table-hover" id="table-veiculos">
 					<thead>
 						<tr>
-							<th>Comprador</th>
+							<th>Id</th>
 							<th>Marca</th>
 							<th>Modelo</th>
-							<th>Data</th>
-							<th>Modelo</th>
-							<th>#</th>
+							<th>Ano de Fabric.</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -66,24 +65,22 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button class="close" data-dismiss="modal" type="button">&times;</button>
-					Nova Venda
+					Novo Veículo
 				</div>
 				<div class="modal-body">
 					<form role="form" action="engine.php" method="post">
-						<input type="hidden" name="action" value="nova_venda" />
+						<input type="hidden" name="action" value="novo_veiculo" />
 						<div class="form-group">
-							<label for="comprador">Comprador</label>
-							<select id="comprador" name="comprador">
-							</select>
+							<label for="marca">Marca</label>
+							<input type="text" placeholder="Marca" name="marca" />
 						</div>
 						<div class="form-group">
-							<label for="veiculo">Veiculo</label>
-							<select id="veiculo" name="veiculo">
-							</select>
+							<label for="modelo">Modelo</label>
+							<input type="text" placeholder="Modelo" name="modelo" />
 						</div>
 						<div class="form-group">
-							<label for="valor">Valor</label>
-							<input type="text" placeholder="Valor da Venda" name="valor" />
+							<label for="ano_fabri">Ano fabricação</label>
+							<input type="text" placeholder="Ano de Fabricação" name="ano_fabri" />
 						</div>
 						<button class="btn btn-primary" type="submit">Ok</button>
 					</form>
@@ -91,26 +88,29 @@
 			</div>
 		</div>
 	</div>
-
-	<div class="modal fade" role="dialog" id="modal-atualizar">
+	
+	<div class="modal fade" role="dialog" id="modal-update">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button class="close" data-dismiss="modal" type="button">&times;</button>
-					Atualizar Venda
+					Novo Veículo
 				</div>
 				<div class="modal-body">
 					<form role="form" action="engine.php" method="post">
-						<input type="hidden" name="action" value="atualizar_venda" />
-						<input type="hidden" name="codigo" id="atualizar-codigo" />
+						<input type="hidden" name="action" value="atualizar_veiculo" />
+						<input type="hidden" name="codigo" id="atualizar_codigo" />
 						<div class="form-group">
-							<label for="atualizar-veiculo">Veiculo</label>
-							<select id="atualizar-veiculo" name="veiculo" id="atualizar-veiculo-id">
-							</select>
+							<label for="marca">Marca</label>
+							<input type="text" placeholder="Marca" name="marca" id="atualizar_marca" />
 						</div>
 						<div class="form-group">
-							<label for="valor">Valor</label>
-							<input type="text" placeholder="Valor da Venda" name="valor" id="atualizar-valor" />
+							<label for="modelo">Modelo</label>
+							<input type="text" placeholder="Modelo" name="modelo" id="atualizar_modelo" />
+						</div>
+						<div class="form-group">
+							<label for="ano_fabri">Ano fabricação</label>
+							<input type="text" placeholder="Ano de Fabricação" name="ano_fabri" id="atualizar_ano_fabri" />
 						</div>
 						<button class="btn btn-primary" type="submit">Ok</button>
 					</form>
@@ -126,7 +126,7 @@
 		$(document).ready(function() {
 			lib.checkForMessages("#alert-principal");
 			obterVendedorLogado();
-			obterVendas();
+			obterVeiculos();
 			preencherCompradores();
 			preencherVeiculos();
 		});
@@ -135,23 +135,29 @@
 				$("#bem-vindo-vendedor").append("<b>"+vendedor.nome+"!</b>");
 			});
 		}
-		function obterVendas() {
-			lib.obterVendas(function(vendas) {
+		function obterVeiculos() {
+			lib.obterVeiculos(function(Veiculos) {
 				var html = "";
-				for (var i=0;i<vendas.length;i++) {
-					var item = vendas[i];
+				for (var i=0;i<Veiculos.length;i++) {
+					var item = Veiculos[i];
 					html += "<tr data-id='"+item.codigo+"'>";
-					html += "<td>"+item.nome_comprador+"</td>";	
+					html += "<td>"+item.codigo+"</td>";	
 					html += "<td>"+item.marca+"</td>";	
 					html += "<td>"+item.modelo+"</td>";	
-					html += "<td>"+item.data+"</td>";	
-					html += "<td>"+item.valor+"</td>";	
-					html += "<td><button type='button' data-toggle='modal' data-target='#modal-atualizar' onclick='atualizarVenda("+JSON.stringify(item)+")' title='Atualizar'><span class='glyphicon glyphicon-retweet'></span></button></td>";	
+					html += "<td>"+item.ano_fabri+"</td>";	
+					html += "<td><button type='button' data-toggle='modal' data-target='#modal-update' onclick='prepareUpdate("+JSON.stringify(item)+")' title='Atualizar'><span class='glyphicon glyphicon-retweet'></span></button><button type='button' onclick='deletarVeiculo(\""+item.modelo+"\","+item.ano_fabri+")' title='Deletar'><span class='glyphicon glyphicon-remove-sign'></span></button></td>";	
 					html += "</tr>";
 				}
-				$("#table-vendas tbody").html(html);
+				$("#table-veiculos tbody").html(html);
 			});
 		}
+
+		function deletarVeiculo(nome, ano_fabri) {
+			lib.deletarVeiculo(nome, ano_fabri, function() {
+				obterVeiculos();
+			});	
+		}
+		
 		function preencherCompradores() {
 			lib.obterPessoas(function(pessoas) {
 				var html="";
@@ -167,16 +173,16 @@
 				var html="";
 				for (var i=0;i<veiculos.length;i++) {
 					var veiculo = veiculos[i];
-					html += "<option value='"+veiculo.codigo+"'>"+veiculo.marca + " - " + veiculo.modelo + " ("+ veiculo.ano_fabri +")" +"</option>";
+					html += "<option value='"+veiculo.codigo+"'>"+veiculo.marca + " - " + veiculo.modelo +"</option>";
 				}
-				$("#veiculo,#atualizar-veiculo").html(html);
+				$("#veiculo").html(html);
 			});	
 		}
-		function atualizarVenda(item) {
-			console.log(item.cod_veic);
-			$("#atualizar-codigo").attr("value",item.codigo);
-			$("#atualizar-veiculo").prop("value",item.cod_veic);
-			$("#atualizar-valor").prop("value",item.valor);
+		function prepareUpdate(item) {
+			$("#atualizar_codigo").attr("value",item.codigo);
+			$("#atualizar_marca").prop("value",item.marca);
+			$("#atualizar_modelo").prop("value",item.modelo);
+			$("#atualizar_ano_fabri").prop("value",item.ano_fabri);
 		}
 	</script>
 </body>

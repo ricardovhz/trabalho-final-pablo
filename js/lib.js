@@ -59,5 +59,8 @@ var lib = {
 	},
 	deletarUsuario: function(nome_usuario, callback) {
 		this.sendAction({"nome_usuario": nome_usuario},"deletar_usuario", callback);
+	},
+	deletarVeiculo: function(modelo, ano_fabri, callback) {
+		this.sendAction({"modelo": modelo,"ano_fabri": ano_fabri},"deletar_veiculo", callback);
 	}
 }
