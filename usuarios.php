@@ -103,7 +103,7 @@
 					var item = usuarios[i];
 					html += "<tr data-id='"+item.nome_usuario+"'>";
 					html += "<td>"+item.nome_usuario+"</td>";
-					html += "<td><button type='button' onclick='deletarUsuario(\""+item.nome_usuario+"\")' title='Deletar'><span class='glyphicon glyphicon-remove-sign'></span></button></td>";	
+					html += "<td><button class='btn btn-default' type='button' onclick='deletarUsuario(\""+item.nome_usuario+"\")' title='Deletar'><span class='glyphicon glyphicon-remove-sign'></span></button></td>";	
 					html += "</tr>";
 				}
 				$("#table-usuarios tbody").html(html);

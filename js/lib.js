@@ -1,6 +1,17 @@
 var lib = {
 	url: "engine.php",
-
+	parseDate: function(d) {
+		var date = new Date();
+		if (typeof(d) === "string") {
+			date = new Date(Date.parse(d));
+		} else {
+			date = d;
+		}
+		var day = "00"+date.getUTCDate();
+		var month = "00"+(date.getUTCMonth()+1);
+		var year = "0000"+date.getUTCFullYear();
+		return day.substring(day.length-2) + "/"+month.substring(month.length-2)+"/"+year.substring(year.length-4);
+	},
 	checkForMessages: function(selector) {
                if (location.search.length > 0) {
                        var search = location.search.substring(1).split("&");

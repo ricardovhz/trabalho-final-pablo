@@ -15,7 +15,7 @@ switch ($action) {
 		break;
 	case "vendas_logado":
 		$id_vendedor = $_SESSION['id_vendedor'];
-		$query = "select v.codigo as codigo, p.nome as nome_comprador, cod_veic, cod_pess, veic.marca as marca, veic.modelo as modelo, v.data_vend as data, v.vlr_venda as valor from venda v inner join vendedor ve on ve.codigo=v.cod_vend inner join veiculo veic on veic.codigo=v.cod_veic inner join pessoa p on p.codigo=v.cod_pess where cod_vend=" . $id_vendedor;
+		$query = "select v.codigo as codigo, p.nome as nome_comprador, cod_veic, cod_pess, veic.marca as marca, veic.modelo as modelo, veic.ano_fabri as ano_fabri, v.data_vend as data, v.vlr_venda as valor from venda v inner join vendedor ve on ve.codigo=v.cod_vend inner join veiculo veic on veic.codigo=v.cod_veic inner join pessoa p on p.codigo=v.cod_pess where cod_vend=" . $id_vendedor;
 		return_query_array($query,$con);
 		break;
 	case "obter_pessoas":
@@ -32,7 +32,6 @@ switch ($action) {
 		$veiculo = mysql_escape_string($_POST['veiculo']);
 		$valor = mysql_escape_string($_POST['valor']);
 		$query = "insert into venda (cod_pess,cod_veic,cod_vend,data_vend,vlr_venda) values (" . $comprador . ", " . $veiculo . ", " . $id_vendedor . ", now(), " . $valor . ")";
-		$res = mysql_query($query,$con);
 		realiza_DML($query,$con,"vendas.php","Venda adicionada com sucesso!");
 		break;
 	case "atualizar_venda":

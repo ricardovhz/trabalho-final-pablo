@@ -143,10 +143,10 @@
 					html += "<tr data-id='"+item.codigo+"'>";
 					html += "<td>"+item.nome_comprador+"</td>";	
 					html += "<td>"+item.marca+"</td>";	
-					html += "<td>"+item.modelo+"</td>";	
-					html += "<td>"+item.data+"</td>";	
+					html += "<td>"+item.modelo+" ("+item.ano_fabri+")"+"</td>";	
+					html += "<td>"+lib.parseDate(item.data)+"</td>";
 					html += "<td>"+item.valor+"</td>";	
-					html += "<td><button type='button' data-toggle='modal' data-target='#modal-atualizar' onclick='atualizarVenda("+JSON.stringify(item)+")' title='Atualizar'><span class='glyphicon glyphicon-retweet'></span></button></td>";	
+					html += "<td><button class='btn btn-default' type='button' data-toggle='modal' data-target='#modal-atualizar' onclick='atualizarVenda("+JSON.stringify(item)+")' title='Atualizar'><span class='glyphicon glyphicon-retweet'></span></button></td>";	
 					html += "</tr>";
 				}
 				$("#table-vendas tbody").html(html);

@@ -47,7 +47,6 @@
 				<table class="table table-stripped table-hover" id="table-veiculos">
 					<thead>
 						<tr>
-							<th>Id</th>
 							<th>Marca</th>
 							<th>Modelo</th>
 							<th>Ano de Fabric.</th>
@@ -141,11 +140,10 @@
 				for (var i=0;i<Veiculos.length;i++) {
 					var item = Veiculos[i];
 					html += "<tr data-id='"+item.codigo+"'>";
-					html += "<td>"+item.codigo+"</td>";	
 					html += "<td>"+item.marca+"</td>";	
 					html += "<td>"+item.modelo+"</td>";	
 					html += "<td>"+item.ano_fabri+"</td>";	
-					html += "<td><button type='button' data-toggle='modal' data-target='#modal-update' onclick='prepareUpdate("+JSON.stringify(item)+")' title='Atualizar'><span class='glyphicon glyphicon-retweet'></span></button><button type='button' onclick='deletarVeiculo(\""+item.modelo+"\","+item.ano_fabri+")' title='Deletar'><span class='glyphicon glyphicon-remove-sign'></span></button></td>";	
+					html += "<td><button class='btn btn-default' type='button' data-toggle='modal' data-target='#modal-update' onclick='prepareUpdate("+JSON.stringify(item)+")' title='Atualizar'><span class='glyphicon glyphicon-retweet'></span></button><button class='btn btn-default' type='button' onclick='deletarVeiculo(\""+item.modelo+"\","+item.ano_fabri+")' title='Deletar'><span class='glyphicon glyphicon-remove-sign'></span></button></td>";	
 					html += "</tr>";
 				}
 				$("#table-veiculos tbody").html(html);
