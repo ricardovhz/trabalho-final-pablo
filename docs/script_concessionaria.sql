@@ -16,9 +16,6 @@ create table pessoa (
 	rg        int(11) NOT NULL,
 	cpf       int(14) NOT NULL,
 	endereco  varchar(150) NOT NULL,
-	bairro    varchar(30),
-	cidade    varchar(30) NOT NULL,
-	uf        varchar(2) NOT NULL,
 	data_nasc date NOT NULL,
 	primary key (codigo)
 );

@@ -73,5 +73,8 @@ var lib = {
 	},
 	deletarVeiculo: function(modelo, ano_fabri, callback) {
 		this.sendAction({"modelo": modelo,"ano_fabri": ano_fabri},"deletar_veiculo", callback);
+	},
+	deletarPessoa: function(cpf, callback) {
+		this.sendAction({"cpf": cpf},"deletar_pessoa", callback);
 	}
 }

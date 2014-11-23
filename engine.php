@@ -104,6 +104,35 @@ switch ($action) {
 		$query = "delete from veiculo where modelo='" . $modelo . "' and ano_fabri=".$ano_fabri;
 		realiza_DML($query,$con,"veiculos.php","Veiculo apagado com sucesso!");
 		break;
+	case "nova_pessoa":
+		$nome = mysql_escape_string($_POST['nome']);
+		$rg = mysql_escape_string($_POST['rg']);
+		$cpf = mysql_escape_string($_POST['cpf']);
+		$endereco = mysql_escape_string($_POST['endereco']);
+		$data_nasc = mysql_escape_string($_POST['data_nasc']);
+		$query_select = "select * from pessoa where cpf=".$cpf;
+		$res = mysql_query($query_select,$con);
+		if (mysql_num_rows($res) > 0) {
+			header("location: pessoas.php?error=true&msg=Pessoa já existe na base de dados");
+			die("Pessoa ja existe");
+		}
+
+		$query = "insert into pessoa (nome,rg,cpf,endereco,data_nasc) values (". $codigo .",". $nome .",". $rg .",". $cpf .",". $endereco .",". $data_nasc .")";
+		realiza_DML($query,$con,"pessoas.php","Pessoa incluida com sucesso!");
+		break;
+	case "atualizar_pessoa":
+		$codigo = mysql_escape_string($_POST['codigo']);
+		$nome = mysql_escape_string($_POST['nome']);
+		$endereco = mysql_escape_string($_POST['endereco']);
+		$data_nasc = mysql_escape_string($_POST['data_nasc']);
+		$query = "update pessoai set nome='". $nome ."', endereco='". $endereco ."', data_nasc='". $data_nasc ."' where codigo=".$codigo;
+		realiza_DML($query,$con,"pessoas.php","Pessoa atualizada com sucesso!");
+		break;
+	case "deletar_pessoa":
+		$cpf = mysql_escape_string($_POST['cpf']);
+		$query = "delete from pessoa where cpf=".$cpf;
+		realiza_DML($query,$con,"pessoas.php","Pessoa apagado com sucesso!");
+		break;
 
 }
 
