@@ -20,7 +20,6 @@ var lib = {
                                var message = "";
                                for (var i=0;i<search.length;i++) {
                                        var prop = search[i].split("=");
-                                       console.log(prop);
                                        if (prop[0] == "error") {
                                                if (prop[1] == "true") {
                                                        classAlert="alert-danger";

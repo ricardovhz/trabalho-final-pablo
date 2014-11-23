@@ -13,8 +13,8 @@ create table usuario (
 create table pessoa (
 	codigo    int(6) NOT NULL AUTO_INCREMENT,
 	nome      varchar(50) NOT NULL,
-	rg        int(11) NOT NULL,
-	cpf       int(14) NOT NULL,
+	rg        varchar(11) NOT NULL,
+	cpf       varchar(14) NOT NULL,
 	endereco  varchar(150) NOT NULL,
 	data_nasc date NOT NULL,
 	primary key (codigo)

@@ -117,15 +117,15 @@ switch ($action) {
 			die("Pessoa ja existe");
 		}
 
-		$query = "insert into pessoa (nome,rg,cpf,endereco,data_nasc) values (". $codigo .",". $nome .",". $rg .",". $cpf .",". $endereco .",". $data_nasc .")";
+		$query = "insert into pessoa (nome,rg,cpf,endereco,data_nasc) values ('". $nome ."','". $rg ."','". $cpf ."','". $endereco ."','". $data_nasc ."')";
 		realiza_DML($query,$con,"pessoas.php","Pessoa incluida com sucesso!");
 		break;
 	case "atualizar_pessoa":
-		$codigo = mysql_escape_string($_POST['codigo']);
+		$cpf = mysql_escape_string($_POST['cpf']);
 		$nome = mysql_escape_string($_POST['nome']);
 		$endereco = mysql_escape_string($_POST['endereco']);
 		$data_nasc = mysql_escape_string($_POST['data_nasc']);
-		$query = "update pessoai set nome='". $nome ."', endereco='". $endereco ."', data_nasc='". $data_nasc ."' where codigo=".$codigo;
+		$query = "update pessoa set nome='". $nome ."', endereco='". $endereco ."', data_nasc='". $data_nasc ."' where cpf=".$cpf;
 		realiza_DML($query,$con,"pessoas.php","Pessoa atualizada com sucesso!");
 		break;
 	case "deletar_pessoa":

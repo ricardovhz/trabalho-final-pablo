@@ -107,9 +107,10 @@
 				<div class="modal-body">
 					<form role="form" action="engine.php" method="post">
 						<input type="hidden" name="action" value="atualizar_pessoa" />
+						<input type="hidden" name="cpf" id="hidden_cpf_pessoa" />
 						<div class="form-group">
 							<label for="atualizar_cpf">CPF</label>
-							<input type="text" disabled="true" id="atualizar_cpf" name="cpf" />
+							<input type="text" disabled="true" id="atualizar_cpf" />
 						</div>
 						<div class="form-group">
 							<label for="atualizar_nome">Nome</label>
@@ -170,7 +171,8 @@
 		}
 		
 		function prepareUpdate(item) {
-			$("#atualizar_cpf").attr("value",item.cpf);
+			$("#hidden_cpf_pessoa").attr("value",item.cpf);
+			$("#atualizar_cpf").prop("value",item.cpf);
 			$("#atualizar_nome").prop("value",item.nome);
 			$("#atualizar_rg").prop("value",item.rg);
 			$("#atualizar_endereco").prop("value",item.endereco);

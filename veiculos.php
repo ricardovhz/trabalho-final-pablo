@@ -50,6 +50,7 @@
 							<th>Marca</th>
 							<th>Modelo</th>
 							<th>Ano de Fabric.</th>
+							<th>#</th>
 						</tr>
 					</thead>
 					<tbody>

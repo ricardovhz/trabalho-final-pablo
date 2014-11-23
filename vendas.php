@@ -173,7 +173,6 @@
 			});	
 		}
 		function atualizarVenda(item) {
-			console.log(item.cod_veic);
 			$("#atualizar-codigo").attr("value",item.codigo);
 			$("#atualizar-veiculo").prop("value",item.cod_veic);
 			$("#atualizar-valor").prop("value",item.valor);
