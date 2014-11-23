@@ -1,0 +1,172 @@
+-- MySQL dump 10.13  Distrib 5.6.20, for Linux (x86_64)
+--
+-- Host: localhost    Database: consecionaria
+-- ------------------------------------------------------
+-- Server version	5.6.20
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `pessoa`
+--
+
+DROP TABLE IF EXISTS `pessoa`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `pessoa` (
+  `codigo` int(6) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(50) NOT NULL,
+  `rg` varchar(11) DEFAULT NULL,
+  `cpf` varchar(14) DEFAULT NULL,
+  `endereco` varchar(150) NOT NULL,
+  `bairro` varchar(30) DEFAULT NULL,
+  `cidade` varchar(30) NOT NULL,
+  `uf` varchar(2) NOT NULL,
+  `data_nasc` date NOT NULL,
+  PRIMARY KEY (`codigo`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pessoa`
+--
+
+LOCK TABLES `pessoa` WRITE;
+/*!40000 ALTER TABLE `pessoa` DISABLE KEYS */;
+INSERT INTO `pessoa` VALUES (1,'RICARDO VANHOZ RIBEIRO','419087527','36240988880','Rua Goncalves de Magalhaes, 266','PIRATININGA','RIBEIRAO PRETO','SP','1988-07-25'),(7,'RAFAEL VANHOZ RIBEIRO','45645','654321','Rua de Barretos, 1234',NULL,'','','1992-02-19');
+/*!40000 ALTER TABLE `pessoa` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `usuario`
+--
+
+DROP TABLE IF EXISTS `usuario`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `usuario` (
+  `nome_usuario` varchar(50) NOT NULL,
+  `senha` varchar(50) NOT NULL,
+  `id_vendedor` int(6) NOT NULL,
+  PRIMARY KEY (`nome_usuario`),
+  KEY `id_vendedor` (`id_vendedor`),
+  CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`id_vendedor`) REFERENCES `vendedor` (`codigo`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `usuario`
+--
+
+LOCK TABLES `usuario` WRITE;
+/*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
+INSERT INTO `usuario` VALUES ('ricardovhz','7c4a8d09ca3762af61e59520943dc26494f8941b',1),('rodrigovanhoz','7c4a8d09ca3762af61e59520943dc26494f8941b',1);
+/*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `veiculo`
+--
+
+DROP TABLE IF EXISTS `veiculo`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `veiculo` (
+  `codigo` int(6) NOT NULL AUTO_INCREMENT,
+  `marca` varchar(50) NOT NULL,
+  `modelo` varchar(100) NOT NULL,
+  `ano_fabri` int(4) DEFAULT NULL,
+  PRIMARY KEY (`codigo`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `veiculo`
+--
+
+LOCK TABLES `veiculo` WRITE;
+/*!40000 ALTER TABLE `veiculo` DISABLE KEYS */;
+INSERT INTO `veiculo` VALUES (1,'FIAT','UNO SPORTING',2012),(6,'FIAT','PALIO',1999),(8,'FIAT','PALIO',2002),(9,'FIAT','LINEA',2013),(10,'FORD','FOCUS',2004);
+/*!40000 ALTER TABLE `veiculo` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `venda`
+--
+
+DROP TABLE IF EXISTS `venda`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `venda` (
+  `codigo` int(6) NOT NULL AUTO_INCREMENT,
+  `cod_pess` int(6) NOT NULL,
+  `cod_veic` int(6) NOT NULL,
+  `cod_vend` int(6) NOT NULL,
+  `data_vend` date NOT NULL,
+  `vlr_venda` int(10) NOT NULL,
+  PRIMARY KEY (`codigo`),
+  KEY `cod_pess` (`cod_pess`),
+  KEY `cod_veic` (`cod_veic`),
+  KEY `cod_vend` (`cod_vend`),
+  CONSTRAINT `venda_ibfk_1` FOREIGN KEY (`cod_pess`) REFERENCES `pessoa` (`codigo`),
+  CONSTRAINT `venda_ibfk_2` FOREIGN KEY (`cod_veic`) REFERENCES `veiculo` (`codigo`),
+  CONSTRAINT `venda_ibfk_3` FOREIGN KEY (`cod_vend`) REFERENCES `vendedor` (`codigo`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `venda`
+--
+
+LOCK TABLES `venda` WRITE;
+/*!40000 ALTER TABLE `venda` DISABLE KEYS */;
+INSERT INTO `venda` VALUES (1,1,1,1,'2014-11-01',30000),(9,7,10,1,'2014-11-23',30001);
+/*!40000 ALTER TABLE `venda` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `vendedor`
+--
+
+DROP TABLE IF EXISTS `vendedor`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `vendedor` (
+  `codigo` int(6) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(50) NOT NULL,
+  `cargo` varchar(50) NOT NULL,
+  `turno` varchar(30) NOT NULL,
+  `data_adm` date NOT NULL,
+  PRIMARY KEY (`codigo`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `vendedor`
+--
+
+LOCK TABLES `vendedor` WRITE;
+/*!40000 ALTER TABLE `vendedor` DISABLE KEYS */;
+INSERT INTO `vendedor` VALUES (1,'RICARDO VANHOZ RIBEIRO','VENDEDOR','DIURNO','2014-01-01');
+/*!40000 ALTER TABLE `vendedor` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2014-11-23 21:19:39
