@@ -50,7 +50,7 @@
 							<th>Marca</th>
 							<th>Modelo</th>
 							<th>Data</th>
-							<th>Modelo</th>
+							<th>Valor da Venda (R$)</th>
 							<th>#</th>
 						</tr>
 					</thead>
@@ -145,7 +145,7 @@
 					html += "<td>"+item.marca+"</td>";	
 					html += "<td>"+item.modelo+" ("+item.ano_fabri+")"+"</td>";	
 					html += "<td>"+lib.parseDate(item.data)+"</td>";
-					html += "<td>"+item.valor+"</td>";	
+					html += "<td>"+formatReal(item.valor)+"</td>";	
 					html += "<td><button class='btn btn-default' type='button' data-toggle='modal' data-target='#modal-atualizar' onclick='atualizarVenda("+JSON.stringify(item)+")' title='Atualizar'><span class='glyphicon glyphicon-retweet'></span></button></td>";	
 					html += "</tr>";
 				}
@@ -177,6 +177,15 @@
 			$("#atualizar-veiculo").prop("value",item.cod_veic);
 			$("#atualizar-valor").prop("value",item.valor);
 		}
+		function formatReal( int ) {
+			var tmp = int+'';
+			tmp = tmp.replace(/([0-9]{2})$/g, ",$1");
+			if( tmp.length > 6 )
+				tmp = tmp.replace(/([0-9]{3}),([0-9]{2}$)/g, ".$1,$2");
+ 
+			return tmp;
+		}
+		
 	</script>
 </body>
 
